@@ -36,9 +36,10 @@
 
   <scm>
     <connection>scm:git:git://github.com/dederobert/servermc-maven-plugin.git</connection>
-    <developerConnection>scm:git:ssh://github.com:dederobert/servermc-maven-plugin.git
+    <developerConnection>scm:git:https://github.com/dederobert/servermc-maven-plugin.git
     </developerConnection>
     <url>https://github.com/dederobert/servermc-maven-plugin/tree/main</url>
+    <tag>servermc-maven-plugin-0.0.1-alpha</tag>
   </scm>
 
   <reporting>
