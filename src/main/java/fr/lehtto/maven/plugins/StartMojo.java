@@ -67,8 +67,11 @@ public class StartMojo extends AbstractServerMcMojo {
    */
   @VisibleForTesting
   ProcessBuilder createProcessBuilder() {
+    // Use the current java program to run server
+    final String java = System.getProperty("java.home") + "/bin/java";
+    getLog().info(MessageFormat.format("Use java {0}", java));
     //noinspection StringConcatenationMissingWhitespace
-    return new ProcessBuilder("java", "-Xms" + memoryMin + 'G', "-Xmx" + memoryMax + 'G',
+    return new ProcessBuilder(java, "-Xms" + memoryMin + 'G', "-Xmx" + memoryMax + 'G',
         "-jar", "server.jar", "--nogui");
   }
 }

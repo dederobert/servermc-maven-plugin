@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Objects;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Request.Builder;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -43,7 +42,7 @@ public class PaperApiClient {
    */
   public Version retrieveVersion(final String baseUrl, final String mcVersion) throws MojoExecutionException {
     // Call Paper API
-    final Request request = new Builder()
+    final Request request = new Request.Builder()
         .url(baseUrl + "versions/" + mcVersion)
         .build();
     try (final Response response = client.newCall(request).execute()) {
@@ -76,7 +75,7 @@ public class PaperApiClient {
   public Build retrieveBuild(final String baseUrl, final String mcVersion, final String paperBuild)
       throws MojoExecutionException {
     // Gets URL to download JAR
-    final Request request = new Builder()
+    final Request request = new Request.Builder()
         .url(baseUrl + "versions/" + mcVersion + "/builds/" + paperBuild)
         .build();
     try (final Response response = client.newCall(request).execute()) {

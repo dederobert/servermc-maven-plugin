@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -129,7 +130,7 @@ public class CopyPluginMojo extends AbstractServerMcMojo {
     final File pluginsFolder = new File(getServerDirectory(), "plugins");
 
     for (final Plugin plugin : additionalPlugins) {
-      final File destinationPluginJar = new File(pluginsFolder, plugin.getName() + ".jar");
+      final File destinationPluginJar = new File(pluginsFolder, FilenameUtils.getName( plugin.getName() + ".jar"));
       if (null != plugin.getFile()) {
         // Plugin file is defined
         getLog().info(MessageFormat.format("Copy plugin {0} from file {1}", plugin.getName(), plugin.getFile()));
@@ -153,7 +154,7 @@ public class CopyPluginMojo extends AbstractServerMcMojo {
                 MessageFormat.format("Unable to found plugin {0} in dependencies with groupId {1} and artifactId {2}",
                     plugin.getName(), plugin.getGroupId(), plugin.getArtifactId())));
         final File sourceFile = artifact.getFile();
-        final File destinationFile = new File(pluginsFolder, artifact.getArtifactId() + ".jar");
+        final File destinationFile = new File(pluginsFolder, FilenameUtils.getName(artifact.getArtifactId() + ".jar"));
         getLog().info("Plugin found in dependencies");
         copyFile(sourceFile, destinationFile);
       } else {

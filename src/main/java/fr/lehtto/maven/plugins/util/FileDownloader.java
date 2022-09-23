@@ -9,8 +9,11 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.List;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -21,6 +24,8 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.0.1
  */
 public final class FileDownloader {
+
+  private static final List<String> WHITELISTED_PROTOCOLE = Arrays.asList("http", "https");
 
   /**
    * Default constructor.
@@ -78,8 +83,16 @@ public final class FileDownloader {
    * @param destination the destination file
    * @param url         the source URL
    * @throws MojoExecutionException when issue occurred while downloading the server file.
+   * @throws MojoFailureException when unsupported protocol is used
    */
-  public static void downloadFile(final File destination, final URL url) throws MojoExecutionException {
+  public static void downloadFile(final File destination, final URL url)
+      throws MojoExecutionException, MojoFailureException {
+    // Enforce security before downloading file avoid SSRF
+    if (!WHITELISTED_PROTOCOLE.contains(url.getProtocol())) {
+      throw new MojoFailureException(
+          MessageFormat.format("Unable to download file from url {0}, only http and https protocol accepted", url));
+    }
+
     try (final FileOutputStream out = new FileOutputStream(destination)) {
       final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       final byte[] buffer = new byte[8192];
@@ -89,6 +102,8 @@ public final class FileDownloader {
           out.write(buffer, 0, bytesRead);
         }
       }
+      // Free resources
+      connection.disconnect();
     } catch (final IOException e) {
       throw new MojoExecutionException(MessageFormat.format("Unable to download PaperMC from {0}", url), e);
     } catch (final OutOfMemoryError e) {

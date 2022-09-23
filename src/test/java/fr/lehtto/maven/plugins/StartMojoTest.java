@@ -79,7 +79,7 @@ class StartMojoTest {
     //noinspection StringConcatenationMissingWhitespace
     assertThat(result.command())
         .containsExactly(
-            "java",
+            System.getProperty("java.home") + "/bin/java",
             "-Xms" + memoryMin + 'G',
             "-Xmx" + memoryMax + 'G',
             "-jar",
