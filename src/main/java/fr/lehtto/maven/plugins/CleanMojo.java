@@ -57,7 +57,11 @@ public class CleanMojo extends AbstractServerMcMojo {
       boolean cleaned = true;
       if (null != content) {
         for (final File subFile : content) {
-          cleaned &= deleteDir(subFile, filter);
+          if (filter.test(subFile)) {
+            cleaned &= deleteDir(subFile, filter);
+          } else {
+            cleaned = false;
+          }
         }
       }
       if (cleaned && filter.test(file)) {
