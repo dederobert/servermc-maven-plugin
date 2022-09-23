@@ -120,7 +120,6 @@ class CleanMojoTest {
         verify(file).listFiles();
         verify(cleanMojo).deleteDir(content[0], predicate);
         verify(predicate).test(file);
-        verify(predicate).test(content[0]);
         filesMockedStatic.verify(() -> Files.deleteIfExists(path));
       }
     }
@@ -144,6 +143,7 @@ class CleanMojoTest {
         final Path path = mock(Path.class);
 
         // STUBBING
+        doReturn(true).when(predicate).test(file);
         doReturn(true).when(file).exists();
         doReturn(content).when(file).listFiles();
         doReturn(false).when(cleanMojo).deleteDir(content[0], predicate);
@@ -155,6 +155,7 @@ class CleanMojoTest {
         cleanMojo.deleteDir(file, predicate);
 
         // VERIFY
+        verify(predicate).test(file);
         verify(file).exists();
         verify(file).listFiles();
         verify(cleanMojo).deleteDir(content[0], predicate);

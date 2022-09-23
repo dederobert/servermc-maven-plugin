@@ -52,19 +52,21 @@ public class CleanMojo extends AbstractServerMcMojo {
    */
   @VisibleForTesting
   boolean deleteDir(final File file, final Predicate<File> filter) throws MojoExecutionException {
+    if (!filter.test(file)) {
+      return false;
+    }
+
     if (file.exists()) {
       final File[] content = file.listFiles();
       boolean cleaned = true;
+
       if (null != content) {
         for (final File subFile : content) {
-          if (filter.test(subFile)) {
-            cleaned &= deleteDir(subFile, filter);
-          } else {
-            cleaned = false;
-          }
+          cleaned &= deleteDir(subFile, filter);
         }
       }
-      if (cleaned && filter.test(file)) {
+
+      if (cleaned) {
         try {
           getLog().debug("Delete " + file.getAbsolutePath());
           return Files.deleteIfExists(file.toPath());
