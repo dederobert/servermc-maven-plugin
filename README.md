@@ -16,6 +16,9 @@
     <a href="https://sonarcloud.io/summary/new_code?id=dederobert_servermc-maven-plugin" title="Sonar quality gate">
         <img src="https://sonarcloud.io/api/project_badges/measure?project=dederobert_servermc-maven-plugin&metric=security_rating" alt="Sonar security rating">
     </a>
+    <a href="https://codecov.io/gh/dederobert/servermc-maven-plugin" title="Codecov"> 
+        <img src="https://codecov.io/gh/dederobert/servermc-maven-plugin/branch/main/graph/badge.svg?token=FIu5RU7NU2" alt="Codecov"/> 
+    </a>
 </p>
 
 This project is a maven plugin which helps you during Minecraft server plugin development. It can create and start a minecraft server with your plugin.
