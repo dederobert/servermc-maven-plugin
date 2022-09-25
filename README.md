@@ -23,6 +23,19 @@
 
 This project is a maven plugin which helps you during Minecraft server plugin development. It can create and start a minecraft server with your plugin.
 
+## Table of content
+
+- [How to use it ?](#how-to-use-it-)
+  - [Command](#command)
+  - [Configuration](#configuration)
+- [Supported minecraft servers](#supported-minecraft-servers)
+- [Goals](#goals)
+  - [Install mvn servermc:install](#install-mvn-servermcinstall)
+  - [Copy plugins mvn servermc:copy-plugins](#copy-plugins-mvn-servermccopy-plugins)
+  - [Start mvn servermc:start](#start-mvn-servermcstart)
+  - [Clean mvn servermc:clean](#clean-mvn-servermcclean)
+  - [Upcoming features](#upcoming-features)
+
 ## How to use it ?
 
 You can use this plugin with maven commands or by adding it to your project.
@@ -63,6 +76,23 @@ You can configure your project to use this plugin by updating the `pom.xml`
     </plugin>
   </plugins>
 </build>
+```
+
+## How to use snapshot version
+
+**Snapshot versions are not recommended for production purpose. They can be used to test upcoming features.**
+
+In order to use snapshot version, you have to add the snapshot repository to your configuration. You have two options:
+- Add the repository to the `pom.xml` of your project
+- Add the repository to the `settings.xml`
+
+```xml
+<repositories>
+  <repository>
+    <id>OSSRH-SNAPSHOT</id>
+    <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+  </repository>
+</repositories>
 ```
 
 ## Supported minecraft servers
@@ -168,6 +198,8 @@ The goal behavior can be fine-tuned with following configurations:
 
 | parameter | type | optional | default value | description                                         |
 | --- | --- | --- | --- |-----------------------------------------------------|
+| debugPort | int | yes | 5005 | The port to use for remote debugger                 |
+| remoteDebug | boolean | yes | false | Prepare the sever to attach a remote debug          |  
 | serverDirectory | directory path | yes | target/server | The directory where the server is installed and ran | 
 | minimumAllocationPoolSize | int | yes | 1 | Minimum size (in Go) of the memory allocation pool  | 
 | maximumAllocationPoolSize | int | yes | 2 | Maximum size (in Go) of the memory allocation pool  |
@@ -189,4 +221,4 @@ The goal behavior can be fine-tuned with following configurations:
 
 - Adds support for other Minecraft server (e.g. spigot)
 - Adds configurations to clean goal to filter what is deleted
-- Allows debugging of developed plugin
+- ~~Allows debugging of developed plugin~~
