@@ -18,6 +18,11 @@
     <system>github</system>
     <url>https://github.com/dederobert/servermc-maven-plugin/issues</url>
   </issueManagement>
+  
+  <properties>
+    <sonar.organization>dederobert</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+  </properties>
 
   <licenses>
     <license>
