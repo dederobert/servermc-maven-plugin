@@ -2,8 +2,8 @@
 <p align="center">
     <img alt="License: Apache 2.0" src="https://img.shields.io/github/license/dederobert/servermc-maven-plugin">
     <img alt="GitHub release (latest SemVer including pre-releases)" src="https://img.shields.io/github/v/release/dederobert/servermc-maven-plugin?include_prereleases">
-    <a href="https://github.com/dederobert/servermc-maven-plugin/actions/workflows/build.yml" title="Maven build">
-        <img src="https://github.com/dederobert/servermc-maven-plugin/actions/workflows/build.yml/badge.svg" alt="maven build">
+    <a href="https://github.com/dederobert/servermc-maven-plugin/actions/workflows/sonar.yml" title="Build & Sonar analysis">
+        <img src="https://github.com/dederobert/servermc-maven-plugin/actions/workflows/sonar.yml/badge.svg" alt="Build & Sonar analysis">
     </a>
     <br />
     <br />
