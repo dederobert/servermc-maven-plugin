@@ -24,7 +24,7 @@ import org.jetbrains.annotations.VisibleForTesting;
  * Copies plugins to server plugins folder. Copies the current plugin and defined additionalPlugins.
  *
  * @author Lehtto
- * @version 0.0.1
+ * @version 0.1.0
  * @since 0.0.1
  */
 @Mojo(name = "copy-plugin", requiresDependencyResolution = ResolutionScope.COMPILE)
@@ -143,8 +143,8 @@ public class CopyPluginMojo extends AbstractServerMcMojo {
             destinationPluginJar, plugin.getSha256())) {
           throw new MojoFailureException(MessageFormat.format("Plugin {0} checksum is not valid", plugin.getName()));
         }
-        if (null != plugin.getSha256() && !plugin.getSha256().isEmpty() && !FileDownloader.checkMd5Checksum(
-            destinationPluginJar, plugin.getSha256())) {
+        if (null != plugin.getMd5() && !plugin.getMd5().isEmpty() && !FileDownloader.checkMd5Checksum(
+            destinationPluginJar, plugin.getMd5())) {
           throw new MojoFailureException(MessageFormat.format("Plugin {0} checksum is not valid", plugin.getName()));
         }
       } else if (StringUtils.isNotBlank(plugin.getArtifactId()) && StringUtils.isNotBlank(plugin.getGroupId())) {
@@ -175,7 +175,8 @@ public class CopyPluginMojo extends AbstractServerMcMojo {
    * @return the found artifact or {@link Optional#empty()}
    * @throws MojoFailureException when the artifact is found but not resolved
    */
-  private Optional<Artifact> searchArtifact(final @NotNull String groupId, final @NotNull String artifactId)
+  @VisibleForTesting
+  Optional<Artifact> searchArtifact(final @NotNull String groupId, final @NotNull String artifactId)
       throws MojoFailureException {
     for (final Object object : project.getDependencyArtifacts()) {
       if (object instanceof Artifact) {

@@ -16,6 +16,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.jetbrains.annotations.VisibleForTesting;
 
 /**
  * Installs (download, setup) the server.
@@ -136,7 +137,8 @@ public class InstallMojo extends AbstractServerMcMojo {
    *
    * @throws MojoExecutionException when issue occurred while writing file content
    */
-  private void createEulaFile() throws MojoExecutionException {
+  @VisibleForTesting
+  void createEulaFile() throws MojoExecutionException {
     try (final FileOutputStream eulaOut = new FileOutputStream(eulaFile)) {
       eulaOut.write("eula=true".getBytes(StandardCharsets.UTF_8));
     } catch (final IOException e) {
@@ -149,7 +151,8 @@ public class InstallMojo extends AbstractServerMcMojo {
    *
    * @throws MojoExecutionException when issue occurred while calling PaperMC API
    */
-  private void retrievePaperBuildNumber() throws MojoExecutionException {
+  @VisibleForTesting
+  void retrievePaperBuildNumber() throws MojoExecutionException {
     if (null != buildNumber && !buildNumber.trim().isEmpty()) {
       // Paper build number is set by the user
       return;
@@ -168,7 +171,8 @@ public class InstallMojo extends AbstractServerMcMojo {
    *
    * @throws MojoExecutionException when issue occurred while calling PaperMC API
    */
-  private void retrieveJarUrl() throws MojoExecutionException {
+  @VisibleForTesting
+  void retrieveJarUrl() throws MojoExecutionException {
     getLog().info(
         MessageFormat.format("Retrieve JAR name for minecraft version {0} and paper build number {1}", mcVersion,
             buildNumber));
@@ -188,7 +192,8 @@ public class InstallMojo extends AbstractServerMcMojo {
    * @throws MojoExecutionException when issue occurred while downloading the server file.
    * @throws MojoFailureException   when checksum verification failed
    */
-  private void downloadPaper() throws MojoExecutionException, MojoFailureException {
+  @VisibleForTesting
+  void downloadPaper() throws MojoExecutionException, MojoFailureException {
     getLog().info(MessageFormat.format("Starting downloading server JAR from {0}", jarUrl));
     try {
       FileDownloader.downloadFile(jarFile, new URL(jarUrl));
@@ -209,7 +214,8 @@ public class InstallMojo extends AbstractServerMcMojo {
    *
    * @throws MojoExecutionException when issue occurred while writing file content.
    */
-  private void createPropertiesFile() throws MojoExecutionException {
+  @VisibleForTesting
+  void createPropertiesFile() throws MojoExecutionException {
     getLog().info("Creating properties file");
     // Clear the properties fil
     try (final FileOutputStream out = new FileOutputStream(propertiesFile)) {

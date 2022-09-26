@@ -67,25 +67,75 @@ class StartMojoTest {
   }
 
   /**
-   * Test of {@link StartMojo#createProcessBuilder()}.
+   * Tests of {@link StartMojo#createProcessBuilder()}.
    */
   @DisplayName("Create process builder")
-  @Test
-  void testCreateProcessBuilder() {
-    // CALL
-    final ProcessBuilder result = startMojo.createProcessBuilder();
+  @Nested
+  class CreateProcessBuilderTests {
 
-    // ASSERT
-    //noinspection StringConcatenationMissingWhitespace
-    assertThat(result.command())
-        .containsExactly(
-            System.getProperty("java.home") + "/bin/java",
-            "-Xms" + memoryMin + 'G',
-            "-Xmx" + memoryMax + 'G',
-            "-jar",
-            "server.jar",
-            "--nogui"
-        );
+    /**
+     * Test of {@link StartMojo#createProcessBuilder()}.
+     */
+    @DisplayName("Create process builder")
+    @Test
+    void testCreateProcessBuilder() {
+      // CALL
+      final ProcessBuilder result = startMojo.createProcessBuilder();
+
+      // ASSERT
+      //noinspection StringConcatenationMissingWhitespace
+      assertThat(result.command())
+          .containsExactly(
+              System.getProperty("java.home") + "/bin/java",
+              "-Xms" + memoryMin + 'G',
+              "-Xmx" + memoryMax + 'G',
+              "-jar",
+              "server.jar",
+              "--nogui"
+          );
+    }
+
+    /**
+     * Test of {@link StartMojo#createProcessBuilder()}.
+     *
+     * @throws IllegalAccessException when an issue occurred
+     * @throws NoSuchFieldException when an issue occurred
+     */
+    @DisplayName("Create process builder")
+    @Test
+    void withRemoteDebug() throws IllegalAccessException, NoSuchFieldException {
+      // MOCKS
+      final boolean remoteDebug = true;
+      final int remoteDebugPort = 5506;
+
+      // STUBBING
+      // Set remote debug
+      final Field memoryMaxField = startMojo.getClass().getDeclaredField("remoteDebug");
+      memoryMaxField.setAccessible(true);
+      memoryMaxField.set(startMojo, remoteDebug);
+
+      // Set remote debug port
+      final Field debugPort = startMojo.getClass().getDeclaredField("debugPort");
+      debugPort.setAccessible(true);
+      debugPort.set(startMojo, remoteDebugPort);
+
+      // CALL
+      final ProcessBuilder result = startMojo.createProcessBuilder();
+
+      // ASSERT
+      //noinspection StringConcatenationMissingWhitespace
+      assertThat(result.command())
+          .containsExactly(
+              System.getProperty("java.home") + "/bin/java",
+              "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:" + remoteDebugPort,
+              "-Xms" + memoryMin + 'G',
+              "-Xmx" + memoryMax + 'G',
+              "-jar",
+              "server.jar",
+              "--nogui"
+          );
+    }
+
   }
 
   /**

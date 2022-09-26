@@ -78,23 +78,6 @@ You can configure your project to use this plugin by updating the `pom.xml`
 </build>
 ```
 
-## How to use snapshot version
-
-**Snapshot versions are not recommended for production purpose. They can be used to test upcoming features.**
-
-In order to use snapshot version, you have to add the snapshot repository to your configuration. You have two options:
-- Add the repository to the `pom.xml` of your project
-- Add the repository to the `settings.xml`
-
-```xml
-<repositories>
-  <repository>
-    <id>OSSRH-SNAPSHOT</id>
-    <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-  </repository>
-</repositories>
-```
-
 ## Supported minecraft servers
 
 Currently, the plugin supports only PaperMC server.
@@ -212,10 +195,10 @@ This goal's purpose is to clean the server folder,
 
 The goal behavior can be fine-tuned with following configurations:
 
-| parameter | type | optional | default value | description | 
-| --- | --- | --- | --- | --- | 
+| parameter | type | optional | default value | description                                         | 
+| --- | --- | --- | --- |-----------------------------------------------------| 
 | serverDirectory | directory path | yes | target/server | The directory where the server is installed and ran |
-| ignoreWorlds | boolean | yes | false | Is the worlds should keep |
+| ignoreWorlds | boolean | yes | false | whether the world folders should be kept            |
 
 ## Upcoming features
 

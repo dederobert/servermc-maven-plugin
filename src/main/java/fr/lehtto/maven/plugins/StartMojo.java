@@ -13,7 +13,7 @@ import org.jetbrains.annotations.VisibleForTesting;
  * Starts the Minecraft server.
  *
  * @author lehtto
- * @version 0.0.1
+ * @version 0.1.0
  * @since 0.0.1
  */
 @SuppressWarnings("UseOfProcessBuilder")
@@ -22,12 +22,16 @@ public class StartMojo extends AbstractServerMcMojo {
 
   /**
    * The port to use for remote debugger.
+   *
+   * @since 0.1.0
    */
   @Parameter(property = "debugPort", defaultValue = "5005")
   private int debugPort;
 
   /**
    * Prepare the sever to attach a remote debug.
+   *
+   * @since 0.1.0
    */
   @Parameter(property = "remoteDebug", required = true, defaultValue = "false")
   private boolean remoteDebug;

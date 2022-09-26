@@ -16,7 +16,7 @@ import org.jetbrains.annotations.VisibleForTesting;
  * Cleans server folder.
  *
  * @author lehtto
- * @version 0.0.1
+ * @version 0.1.0
  * @since 0.0.1
  */
 @Mojo(name = "clean")
@@ -86,7 +86,8 @@ public class CleanMojo extends AbstractServerMcMojo {
    * @param directory the {@link File directory} to check
    * @return {@code true} is the {@link File directory} is a world directory
    */
-  private boolean isWorldDir(final @NotNull File directory) {
+  @VisibleForTesting
+  boolean isWorldDir(final @NotNull File directory) {
     final String directoryName = directory.getName();
     return Arrays.asList("world", "world_nether", "world_the_end").contains(directoryName);
   }
