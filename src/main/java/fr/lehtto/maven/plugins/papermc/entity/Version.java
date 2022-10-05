@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import org.jetbrains.annotations.Unmodifiable;
 
 /**
@@ -127,6 +128,25 @@ public class Version implements Serializable {
    */
   public int getLatestBuild() {
     return Collections.max(getBuilds());
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (null == o || getClass() != o.getClass()) {
+      return false;
+    }
+    final Version version = (Version) o;
+    return Objects.equals(getBuilds(), version.getBuilds()) && Objects.equals(getProjectId(),
+        version.getProjectId()) && Objects.equals(getProjectName(), version.getProjectName())
+        && Objects.equals(versionStr, version.versionStr);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getBuilds(), getProjectId(), getProjectName(), versionStr);
   }
 
   @Override

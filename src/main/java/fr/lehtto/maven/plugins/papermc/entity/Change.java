@@ -1,6 +1,7 @@
 package fr.lehtto.maven.plugins.papermc.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Change entity. <br /> Represents a change in PaperMC server.
@@ -86,5 +87,32 @@ public class Change implements Serializable {
    */
   public void setMessage(final String message) {
     this.message = message;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (null == o || getClass() != o.getClass()) {
+      return false;
+    }
+    final Change change = (Change) o;
+    return Objects.equals(getCommit(), change.getCommit()) && Objects.equals(getSummary(),
+        change.getSummary()) && Objects.equals(getMessage(), change.getMessage());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getCommit(), getSummary(), getMessage());
+  }
+
+  @Override
+  public String toString() {
+    return "Change{" +
+        "commit='" + commit + '\'' +
+        ", summary='" + summary + '\'' +
+        ", message='" + message + '\'' +
+        '}';
   }
 }

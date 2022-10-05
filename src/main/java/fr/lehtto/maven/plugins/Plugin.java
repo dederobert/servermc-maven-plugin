@@ -2,7 +2,7 @@ package fr.lehtto.maven.plugins;
 
 import java.io.File;
 import java.net.URL;
-import org.jetbrains.annotations.NotNull;
+import java.util.Objects;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -106,7 +106,7 @@ public class Plugin {
    *
    * @return the plugin name
    */
-  public @NotNull String getName() {
+  public String getName() {
     return name;
   }
 
@@ -153,5 +153,38 @@ public class Plugin {
    */
   public void setSha256(final String sha256) {
     this.sha256 = sha256;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (null == o || getClass() != o.getClass()) {
+      return false;
+    }
+    final Plugin plugin = (Plugin) o;
+    return Objects.equals(getArtifactId(), plugin.getArtifactId()) && Objects.equals(getFile(),
+        plugin.getFile()) && Objects.equals(getGroupId(), plugin.getGroupId()) && Objects.equals(
+        getMd5(), plugin.getMd5()) && Objects.equals(getName(), plugin.getName()) && Objects.equals(
+        getUrl(), plugin.getUrl()) && Objects.equals(getSha256(), plugin.getSha256());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getArtifactId(), getFile(), getGroupId(), getMd5(), getName(), getUrl(), getSha256());
+  }
+
+  @Override
+  public String toString() {
+    return "Plugin{" +
+        "artifactId='" + artifactId + '\'' +
+        ", file=" + file +
+        ", groupId='" + groupId + '\'' +
+        ", md5='" + md5 + '\'' +
+        ", name='" + name + '\'' +
+        ", url=" + url +
+        ", sha256='" + sha256 + '\'' +
+        '}';
   }
 }

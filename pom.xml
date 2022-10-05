@@ -162,6 +162,12 @@
         <version>3.23.1</version>
         <scope>test</scope>
       </dependency>
+      <dependency>
+        <groupId>com.github.meanbeanlib</groupId>
+        <artifactId>meanbean</artifactId>
+        <version>3.0.0-M9</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -230,6 +236,10 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.meanbeanlib</groupId>
+      <artifactId>meanbean</artifactId>
     </dependency>
   </dependencies>
 

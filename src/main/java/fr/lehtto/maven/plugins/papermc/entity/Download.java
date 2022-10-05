@@ -2,6 +2,7 @@ package fr.lehtto.maven.plugins.papermc.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Download entity.
@@ -65,5 +66,31 @@ public class Download implements Serializable {
    */
   public void setMojangMappings(final MojangMapping mojangMappings) {
     this.mojangMappings = mojangMappings;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (null == o || getClass() != o.getClass()) {
+      return false;
+    }
+    final Download download = (Download) o;
+    return Objects.equals(getApplication(), download.getApplication()) && Objects.equals(
+        getMojangMappings(), download.getMojangMappings());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getApplication(), getMojangMappings());
+  }
+
+  @Override
+  public String toString() {
+    return "Download{" +
+        "application=" + application +
+        ", mojangMappings=" + mojangMappings +
+        '}';
   }
 }

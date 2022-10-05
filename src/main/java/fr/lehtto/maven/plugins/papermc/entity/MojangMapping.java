@@ -1,6 +1,7 @@
 package fr.lehtto.maven.plugins.papermc.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Mojang mapping entity. Identify which Minecraft sever JAR is mapped to a PaperMC sever JAR.
@@ -63,5 +64,30 @@ public class MojangMapping implements Serializable {
    */
   public void setSha256(final String sha256) {
     this.sha256 = sha256;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (null == o || getClass() != o.getClass()) {
+      return false;
+    }
+    final MojangMapping that = (MojangMapping) o;
+    return Objects.equals(getName(), that.getName()) && Objects.equals(getSha256(), that.getSha256());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName(), getSha256());
+  }
+
+  @Override
+  public String toString() {
+    return "MojangMapping{" +
+        "name='" + name + '\'' +
+        ", sha256='" + sha256 + '\'' +
+        '}';
   }
 }
