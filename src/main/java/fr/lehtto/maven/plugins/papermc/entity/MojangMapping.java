@@ -71,7 +71,7 @@ public class MojangMapping implements Serializable {
     if (this == o) {
       return true;
     }
-    if (null == o || getClass() != o.getClass()) {
+    if (!(o instanceof MojangMapping)) {
       return false;
     }
     final MojangMapping that = (MojangMapping) o;

@@ -73,7 +73,7 @@ public class Download implements Serializable {
     if (this == o) {
       return true;
     }
-    if (null == o || getClass() != o.getClass()) {
+    if (!(o instanceof Download)) {
       return false;
     }
     final Download download = (Download) o;

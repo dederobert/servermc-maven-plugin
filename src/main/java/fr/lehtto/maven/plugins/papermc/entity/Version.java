@@ -135,7 +135,7 @@ public class Version implements Serializable {
     if (this == o) {
       return true;
     }
-    if (null == o || getClass() != o.getClass()) {
+    if (!(o instanceof Version)) {
       return false;
     }
     final Version version = (Version) o;

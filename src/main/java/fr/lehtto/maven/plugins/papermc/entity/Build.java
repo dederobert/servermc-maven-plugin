@@ -235,7 +235,7 @@ public class Build implements Serializable {
     if (this == o) {
       return true;
     }
-    if (null == o || getClass() != o.getClass()) {
+    if (!(o instanceof Build)) {
       return false;
     }
     final Build build = (Build) o;

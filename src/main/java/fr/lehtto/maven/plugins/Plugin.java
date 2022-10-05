@@ -160,7 +160,7 @@ public class Plugin {
     if (this == o) {
       return true;
     }
-    if (null == o || getClass() != o.getClass()) {
+    if (!(o instanceof Plugin)) {
       return false;
     }
     final Plugin plugin = (Plugin) o;

@@ -94,7 +94,7 @@ public class Change implements Serializable {
     if (this == o) {
       return true;
     }
-    if (null == o || getClass() != o.getClass()) {
+    if (!(o instanceof Change)) {
       return false;
     }
     final Change change = (Change) o;

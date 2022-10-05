@@ -71,7 +71,7 @@ public class Application implements Serializable {
     if (this == o) {
       return true;
     }
-    if (null == o || getClass() != o.getClass()) {
+    if (!(o instanceof Application)) {
       return false;
     }
     final Application that = (Application) o;
