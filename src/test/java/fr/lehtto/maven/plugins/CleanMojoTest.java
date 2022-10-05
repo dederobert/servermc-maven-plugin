@@ -1,5 +1,6 @@
 package fr.lehtto.maven.plugins;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -19,6 +20,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
@@ -161,6 +164,49 @@ class CleanMojoTest {
         verify(cleanMojo).deleteDir(content[0], predicate);
         filesMockedStatic.verify(() -> Files.deleteIfExists(path), never());
       }
+    }
+  }
+
+  /**
+   * Tests for {@link CleanMojo#isWorldDir(File)}.
+   */
+  @DisplayName("Is world dir")
+  @Nested
+  class IsWorldDirTests {
+
+    /**
+     * World dir.
+     *
+     * @param pathName the directory pathname
+     */
+    @DisplayName("World dir")
+    @ParameterizedTest
+    @ValueSource(strings = {"world", "world_nether", "world_the_end"})
+    void IsWorldDir(final String pathName) {
+      // INPUTS
+      final File file = new File(pathName);
+
+      // CALL
+      final boolean result = cleanMojo.isWorldDir(file);
+
+      // ASSERT
+      assertThat(result).isTrue();
+    }
+
+    /**
+     * Not world dir.
+     */
+    @DisplayName("Not world dir")
+    @Test
+    void IsNotWorldDir() {
+      // INPUTS
+      final File file = new File("pathName");
+
+      // CALL
+      final boolean result = cleanMojo.isWorldDir(file);
+
+      // ASSERT
+      assertThat(result).isFalse();
     }
   }
 }

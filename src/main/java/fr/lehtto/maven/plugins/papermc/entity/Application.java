@@ -1,6 +1,7 @@
 package fr.lehtto.maven.plugins.papermc.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Application entity.
@@ -63,5 +64,30 @@ public class Application implements Serializable {
    */
   public void setSha256(final String sha256) {
     this.sha256 = sha256;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Application)) {
+      return false;
+    }
+    final Application that = (Application) o;
+    return Objects.equals(getName(), that.getName()) && Objects.equals(getSha256(), that.getSha256());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName(), getSha256());
+  }
+
+  @Override
+  public String toString() {
+    return "Application{" +
+        "name='" + name + '\'' +
+        ", sha256='" + sha256 + '\'' +
+        '}';
   }
 }

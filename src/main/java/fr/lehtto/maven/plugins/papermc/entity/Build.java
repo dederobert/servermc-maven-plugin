@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Build entity.
@@ -227,5 +228,43 @@ public class Build implements Serializable {
    */
   public void setTime(final String time) {
     this.time = time;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Build)) {
+      return false;
+    }
+    final Build build = (Build) o;
+    return isPromoted() == build.isPromoted() && Objects.equals(buildStr, build.buildStr)
+        && Objects.equals(getChanges(), build.getChanges()) && Objects.equals(getChannel(),
+        build.getChannel()) && Objects.equals(getDownloads(), build.getDownloads()) && Objects.equals(
+        getProjectId(), build.getProjectId()) && Objects.equals(getProjectName(), build.getProjectName())
+        && Objects.equals(getTime(), build.getTime()) && Objects.equals(getVersion(),
+        build.getVersion());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(buildStr, getChanges(), getChannel(), getDownloads(), getProjectId(), getProjectName(),
+        isPromoted(), getTime(), getVersion());
+  }
+
+  @Override
+  public String toString() {
+    return "Build{" +
+        "buildStr='" + buildStr + '\'' +
+        ", changes=" + changes +
+        ", channel='" + channel + '\'' +
+        ", downloads=" + downloads +
+        ", projectId='" + projectId + '\'' +
+        ", projectName='" + projectName + '\'' +
+        ", promoted=" + promoted +
+        ", time='" + time + '\'' +
+        ", version='" + version + '\'' +
+        '}';
   }
 }
